@@ -6,6 +6,7 @@ import { SharedModule } from './shared/shared.module';
 
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { SidebarComponent } from './shared/components/sidebar/sidebar.component'
     BrowserModule,
     GifsModule,
     SharedModule,
-    
+    HttpClientModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
