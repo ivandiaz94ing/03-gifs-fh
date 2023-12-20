@@ -6,7 +6,12 @@ import { Gif, SearchResponse } from '../interfaces/gifs.interface';
 export class GifsService {
 
 
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient) {
+    this.loadLocalStorage();
+    console.log('GifService ready');
+
+
+  }
 
   public gifList: Gif [ ] = [];
 
@@ -25,11 +30,25 @@ export class GifsService {
     if(this._tagHistory.includes( tag ) ){
     this._tagHistory = this._tagHistory.filter((oldTag) => oldTag !== tag);
     this._tagHistory = this.tagHistory.splice(0,10);
+
     }
 
     this._tagHistory.unshift(tag);
+    this.saveLocalStorage();
+
   }
 
+private saveLocalStorage():void{
+  localStorage.setItem('History', JSON.stringify(this._tagHistory));
+}
+
+private loadLocalStorage():void{
+  if(!localStorage.getItem('History')) return;
+  this._tagHistory = JSON.parse(localStorage.getItem('History')!);
+
+  if(this._tagHistory.length===0) return;
+  this.searTag(this._tagHistory[0]);
+}
 //Peticion HTTP con solo javascript
   // async searTag(texto : string): Promise<void>{
   //   if(texto.length === 0)
@@ -58,6 +77,7 @@ export class GifsService {
     .subscribe(resp => {
       this.gifList = resp.data;
       //console.log({gifs: this.gifList});
+
     })
 
     //'https://api.giphy.com/v1/gifs/search?api_key=WQ3XAxNGQnU49mkIWEwRmFposNGcLEEO&q=vegeta&limit=10');
