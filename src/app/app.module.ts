@@ -5,18 +5,20 @@ import { GifsModule } from './gifs/gifs.module';
 import { SharedModule } from './shared/shared.module';
 
 import { AppComponent } from './app.component';
-import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CardComponent } from './components/card/card.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CardComponent,
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+
     GifsModule,
     SharedModule,
-    HttpClientModule
 
   ],
   providers: [],
